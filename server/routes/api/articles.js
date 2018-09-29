@@ -43,10 +43,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.param('id', (req, res, next, id) => {
+	console.log(id)
+	// console.log(id.split("=")[1])
   return Articles.findById(id, (err, article) => {
     if(err) {
       return res.sendStatus(404);
     } else if(article) {
+			console.log(article)
       req.article = article;
       return next();
     }

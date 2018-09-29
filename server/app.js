@@ -17,17 +17,21 @@ app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'LightBlog', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'ProtoHackServer', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
 if(!isProduction) {
   app.use(errorHandler());
 }
 
-mongoose.connect('mongodb://localhost/lightblog');
+mongoose.connect('mongodb://localhost/proto_hack');
 mongoose.set('debug', true);
 
 // Add models
 require('./models/Articles');
+require('./models/Users');
+require('./models/Videos');
+require('./config/passport');
+
 // Add routes
 app.use(require('./routes'));
 
@@ -38,7 +42,7 @@ app.use((req, res, next) => {
 });
 
 if (!isProduction) {
-  app.use((err, req, res) => {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
 
     res.json({
