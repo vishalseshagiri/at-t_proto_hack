@@ -10,9 +10,25 @@ import {Redirect} from "react-router-dom"
     }
 })
 export default class Login extends React.Component {
-    login(payload) {
+    constructor(props) {
+        super(props)
+        this.username = ""
+        this.password = ""
+    }
+
+    login() {
+        console.log(this)
+        var payload = {
+            "user" :  {
+                "email" : this.username,
+                "password" : this.password
+            }
+        }
         this.props.dispatch(login(payload))
-        // this.props.history.push("/profile")
+    }
+
+    handleChange(event) {
+        this[event.target.name] = event.target.value;
     }
 
     render() {
@@ -23,7 +39,9 @@ export default class Login extends React.Component {
         if (!user_login.loggedIn) {
             return (<div>
                 <h1>LOGIN PAGE</h1>
-                <button onClick={this.login.bind(this, {"user":{"email": "vishal@gmail.com","password": "ammailu"}})}>Login</button>
+                <input className="input" type="text" name="username" onChange={this.handleChange.bind(this)}></input>
+                <input className="input" type="password" name="password" onChange={this.handleChange.bind(this)}></input>
+                <button onClick={this.login.bind(this)}>Login</button>
             </div>)
         }
         

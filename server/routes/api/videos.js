@@ -58,4 +58,16 @@ router.get('/:id', auth.required, (req, res, next) => {
 
 })
 
+router.get('/', auth.required, (req,res, next) => {
+	const user_id = req.query.user_id
+
+	return Users.findById(user_id, 'watched')
+	.then((user) => {
+		var watched = user.watched;
+		Videos.find({_id : { $in : watched}}).then((videos) => {
+			return res.json(videos)
+		})
+	})
+})
+
 module.exports = router;

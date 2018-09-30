@@ -27,7 +27,6 @@ mongoose.connect('mongodb://localhost/proto_hack');
 mongoose.set('debug', true);
 
 // Add models
-require('./models/Articles');
 require('./models/Users');
 require('./models/Videos');
 require('./config/passport');

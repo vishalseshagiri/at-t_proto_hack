@@ -17,3 +17,9 @@ export function login(payload) {
 
     }
 }
+
+export function valueChange(payload) {
+    return function(dispatch) {
+        dispatch
+    }
+}
