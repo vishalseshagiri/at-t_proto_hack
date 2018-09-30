@@ -1,79 +1,31 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var debug = process.env.NODE_ENV !== "production";
+var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  entry: [
-    'babel-polyfill',
-    './src/index.js',
-  ],
-
-  output: {
-    publicPath: '/',
-    filename: './main.js',
-  },
-
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-
+  context: path.join(__dirname, "src"),
+  devtool: debug ? "inline-sourcemap" : null,
+  entry: "./js/client.js",
   module: {
-    rules: [
+    loaders: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
-
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'public/img/[name].[ext]',
-            outputPath: 'dist/img/',
-          },
-        },
-      },
-
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{ loader: 'css-loader', options: { minimize: true } }, 'sass-loader'],
-        }),
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader',
-          options: {
-            minimize: true,
-          },
-        },
-      },
-      {
-        test: /\.(otf|ttf|eot|woff|woff2)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'public/fonts/[name].[ext]',
-          outputPath: 'dist/fonts',
-        },
-      },
-    ],
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-0'],
+          plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+        }
+      }
+    ]
   },
-
-  plugins: [
-    new ExtractTextPlugin({ filename: 'style.css' }),
-    new HtmlWebpackPlugin({
-      template: './resources/index.html',
-      filename: './index.html',
-      hash: true,
-    }),
+  output: {
+    path: __dirname + "/src/",
+    filename: "client.min.js"
+  },
+  plugins: debug ? [] : [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
-
-  devServer: {
-    historyApiFallback: true,
-    publicPath: '/',
-    contentBase: './dist',
-  },
 };
