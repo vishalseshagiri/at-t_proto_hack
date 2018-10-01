@@ -4,22 +4,7 @@ const auth = require('../auth');
 const Videos = mongoose.model('Videos');
 const Users = mongoose.model('Users');
 
-// router.post('/', auth.required, (req, res, next) => {
-// 	const { payload: { id } } = req;
-
-// 	return Users.findById(id)
-// 		.then((user) => {
-// 			if (!user) {
-// 				return res.sendStatus(400);
-// 			}
-// 			return res.json({ user: user.toAuthJSON()})
-// 		})
-// });
-
 router.param('id', (req, res, next, id) => {
-	// video_id = video_id.split("=")[1]
-	// console.log(video_id)
-	console.log(id)
   return Videos.findById(id, (err, video) => {
     if(err) {
       return res.sendStatus(404);
@@ -41,7 +26,6 @@ router.get('/:id', auth.required, (req, res, next) => {
 	const { genre } = req;
 	const { video } = req;
 	const { recommended } = req;
-	console.log("here")
 
 	return Users.findById(id)
 	.then((user) => {
