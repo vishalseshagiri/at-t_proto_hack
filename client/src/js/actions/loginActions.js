@@ -1,4 +1,5 @@
 import axios from "axios";
+import {setCookie, removeCookie} from 'redux-cookie'
 
 export function login(payload) {
     return function(dispatch) {
@@ -10,6 +11,10 @@ export function login(payload) {
                     type : "LOGGED_IN",
                     payload : response.data.user
                 })
+                dispatch(setCookie('token', "Token "+response.data.user.token))
+                dispatch(setCookie('user_id', response.data.user._id))
+                dispatch(setCookie('user_name', response.data.user.email))
+
             })
             .catch((err) => {
                 dispatch({type: "LOGIN_FAILED", payload: err})

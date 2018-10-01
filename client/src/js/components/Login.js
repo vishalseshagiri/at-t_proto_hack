@@ -45,7 +45,7 @@ export default class Login extends React.Component {
             </div>)
         }
         
-    return <Redirect to="/profile" push/>
+    return <Redirect to="/movies" push/>
     // return <h4>testLogin</h4>
     }
 }

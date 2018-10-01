@@ -17,3 +17,7 @@ iframe {
 body {
     background-color: #141414;
 }
+
+.col-sm-12 {
+    padding: 0px;
+}

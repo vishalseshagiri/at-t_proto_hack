@@ -16,7 +16,8 @@ const UsersSchema = new Schema({
 		"sports": Number
 	},
 	watching: String,
-	watched: [String]
+	watched: [String],
+	friends : [String]
 });
 
 UsersSchema.methods.setPassword = function(password) {
@@ -49,19 +50,24 @@ UsersSchema.methods.toAuthJSON = function(video_id = "", genre_name = "") {
 	this.watching = video_id;
 	if(video_id) {
 		if (this.watched.indexOf(this.watching) == -1) {
-			this.watched.push(this.watching);
+			this.watched.unshift(this.watching);
+		} else {
+			this.watched.splice(this.watched.indexOf(this.watching), 1)
+			this.watched.unshift(this.watching)
 		}
 	}
 	if(genre_name){
 		this.badges[genre_name] += 1;
 	}
+	
   return {
     _id: this._id,
     email: this.email,
     token: this.generateJWT(),
 		watching: this.watching,
 		watched: this.watched,
-		badges: this.badges
+		badges: this.badges,
+		friends : this.friends
   };
 };
 

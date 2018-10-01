@@ -16,7 +16,7 @@ ReactDOM.render(
 <Provider store={store}>
 <Switch>
     <Route exact path="/" component={Login}/>
-    <Route path="/profile" component={Profile}/>
+    <Route path="/movies" component={Profile}/>
   </Switch>
 </Provider>
 </HashRouter>, app);

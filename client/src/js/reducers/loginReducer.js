@@ -8,7 +8,6 @@ export default function reducer(state = {
             return {...state, loggingIn: true}
 
         case "LOGGED_IN":
-            console.log("reduce")
             return {...state, loggedIn:true, loggingIn: false, user: action.payload}
         case "LOGIN_FAILED":
             return {...state, loggingIn: false, error: action.payload}
