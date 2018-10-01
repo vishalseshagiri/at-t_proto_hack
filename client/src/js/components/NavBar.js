@@ -20,8 +20,8 @@ export default class NavBar extends React.Component {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
                 <a className="nav-item nav-link active" href="#/movies">Home <span className="sr-only">(current)</span></a>
-                <a className="nav-item nav-link" href="#/users">Friends <span className="sr-only">(current)</span></a>
-                <a className="nav-item nav-link" href="#/Friends">Explore <span className="sr-only">(current)</span></a>
+                <a className="nav-item nav-link" href="#/friends">Friends <span className="sr-only">(current)</span></a>
+                <a className="nav-item nav-link" href="#/explore">Explore <span className="sr-only">(current)</span></a>
               </div>
             </div>
           </nav>

@@ -91,4 +91,11 @@ router.get('/profile', auth.required, (req, res, next) => {
     });
 });
 
+router.get('/', auth.required, (req, res, next) => {
+  return Users.find()
+    .then((users) => {
+      return res.json(users)
+    })
+})
+
 module.exports = router;

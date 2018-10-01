@@ -24,6 +24,12 @@ export default function reducer(state={
           user: action.payload,
         }
       }
+      case "FETCH_USERS": {
+        return {
+          ...state,
+          users: action.payload
+        }
+      }
       case "SET_USER_NAME": {
         return {
           ...state,

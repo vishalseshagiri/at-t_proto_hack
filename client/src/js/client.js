@@ -5,6 +5,7 @@ import { Route, Switch, HashRouter } from 'react-router-dom';
 
 import Profile from "./components/Profile"
 import Login from "./components/Login"
+import Friends from "./components/Friends"
 import store from "./store"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/style.css'
@@ -17,6 +18,7 @@ ReactDOM.render(
 <Switch>
     <Route exact path="/" component={Login}/>
     <Route path="/movies" component={Profile}/>
+    <Route path="/friends" component={Friends}/>
   </Switch>
 </Provider>
 </HashRouter>, app);
