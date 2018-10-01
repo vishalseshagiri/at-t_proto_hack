@@ -38,7 +38,13 @@ router.post('/', auth.optional, (req, res, next) => {
   finalUser.setPassword(user.password);
 
   return finalUser.save()
-    .then(() => res.json({ user: finalUser.toAuthJSON() }));
+		.then(() => {
+			var inner_user = finalUser.toAuthJSON()
+			user_id = inner_user._id	
+			inner_user.friends.push(user_id)
+			Users.update({_id: user_id}, {$push: {friends: user_id}})
+		    .then(() => res.json({ user: inner_user}));
+		})
 });
 
 //POST login route (optional, everyone has access)
@@ -80,13 +86,11 @@ router.post('/login', auth.optional, (req, res, next) => {
 //GET current route (required, only authenticated users have access)
 router.get('/profile', auth.required, (req, res, next) => {
   const id = req.query.user_id;
-  console.log(id);
   return Users.findById(id)
     .then((user) => {
       if(!user) {
         return res.sendStatus(400);
       }
-
       return res.json({ user: user.toAuthJSON() });
     });
 });

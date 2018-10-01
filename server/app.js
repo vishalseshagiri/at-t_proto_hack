@@ -29,6 +29,7 @@ mongoose.set('debug', true);
 // Add models
 require('./models/Users');
 require('./models/Videos');
+require('./models/Comments');
 require('./config/passport');
 
 // Add routes
