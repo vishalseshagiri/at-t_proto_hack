@@ -297,8 +297,31 @@ def recommend(tuser, predl, genre_dict):
                 if(val1 in user_g_dict[test_user]):
                     test_movie_list.append(item[0][1])
                     break
+    
+    dataf = pd.read_csv('movies.csv')
+    
+    movie_map = {}
+    ctr = 1
+    movie_val = dataf['movieId'].unique()
+    movie_val = list(movie_val)
+    movie_val.sort()
+    for i in movie_val:
+        movie_map[i] = ctr
+        ctr+=1
         
-    return test_movie_list[:10]
+    for index,rows in dataf.iterrows():
+        dataf.loc[index,'movieId'] = movie_map[int(rows['movieId'])]
+        
+    title = {}
+    for index,rows in dataf.iterrows():
+        title[int(rows['movieId'])] = rows['title'].split(' (')[0]
+    int_op = test_movie_list[:10]
+    recs = []
+
+    for i in int_op:
+        recs.append(title[i])
+
+    return recs
         
 
 '''
