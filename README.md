@@ -1,6 +1,6 @@
-# Blog-Tutorial
+# AT&T Proto hack
 
-Simple blog created using React.js & Node.js
+AT&T DirectTV Now gamification platform
 
 ### Prerequisites
 
